@@ -1,7 +1,7 @@
 ﻿namespace objective.Core.Enums
 {
-		public enum Contents
-		{
-				Main,
-		}
+        public enum Contents
+        {
+                Main,
+        }
 }

@@ -1,22 +1,32 @@
 ﻿using Jamesnet.Wpf.Controls;
 using Jamesnet.Wpf.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using objective.Core.Names;
+using Prism.Ioc;
+using Prism.Regions;
 
-namespace objective.Forms.Local
+namespace objective.Forms.Local.ViewModels
 {
-        public partial class MainVIewModel : ObservableBase, IViewLoadable
+        public partial class MainViewModel : ObservableBase, IViewLoadable
         {
-                public MainVIewModel()
-                {
+                private readonly IRegionManager _regionManager;
+                private readonly IContainerProvider _containerProvider;
 
-                }
-                public void OnLoaded(IViewable smartWindow)
+                public MainViewModel(IRegionManager regionManager, IContainerProvider containerProvider)
                 {
-                        throw new NotImplementedException();
+                        _regionManager = regionManager;
+                        _containerProvider = containerProvider;
+                }
+
+                public void OnLoaded(IViewable view)
+                {
+                        IRegion mainRegion = _regionManager.Regions[RegionNameManager.MainRegion];
+                        IViewable loginContent = _containerProvider.Resolve<IViewable>(ContentNameManager.Main);
+
+                        if (!mainRegion.Views.Contains(loginContent))
+                        {
+                                mainRegion.Add(loginContent);
+                        }
+                        mainRegion.Activate(loginContent);
                 }
         }
 }

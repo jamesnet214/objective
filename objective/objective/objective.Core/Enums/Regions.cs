@@ -1,7 +1,7 @@
 ﻿namespace objective.Core.Enums
 {
-		public enum Regions
-		{
-				MainRegion
-		}
+        public enum Regions
+        {
+                MainRegion
+        }
 }

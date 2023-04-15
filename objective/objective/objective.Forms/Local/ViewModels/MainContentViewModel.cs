@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Jamesnet.Wpf.Controls;
+using Jamesnet.Wpf.Mvvm;
+using System;
 
 namespace objective.Forms.Local.ViewModels
 {
-        internal class MainContentViewModel
+        public partial class MainContentViewModel : ObservableBase, IViewLoadable
         {
+                public void OnLoaded(IViewable smartWindow)
+                {
+                }
         }
 }

@@ -10,10 +10,6 @@
     <PackageReference Include="Jamesnet.Wpf" Version="1.0.0.8" />
   </ItemGroup>
 
-  <ItemGroup>    
-    <Folder Include="Local\" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\objective.Core\objective.Core.csproj" />
   </ItemGroup>

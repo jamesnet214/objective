@@ -1,8 +1,6 @@
-<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:objective.Forms">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/objective.Forms;component/Themes/Units/Table.xaml" />
         <ResourceDictionary Source="/objective.Forms;component/Themes/Views/MainContent.xaml" />
         <ResourceDictionary Source="/objective.Forms;component/Themes/Views/MainWindow.xaml" />
     </ResourceDictionary.MergedDictionaries>
