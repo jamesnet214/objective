@@ -22,11 +22,11 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="20" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="10" />
+                            <RowDefinition Height="20" />
                         </Grid.RowDefinitions>
                         <Border Grid.Row="0" Grid.Column="0">
                             <ItemsPresenter />
@@ -36,7 +36,7 @@
                             Grid.Column="1"
                             CornerRadius="0 10 10 0"
                             Style="{StaticResource AreaBorder}"
-                            Tag="LeftArea" />
+                            Tag="RightArea" />
                         <Border
                             Grid.Row="1"
                             Grid.Column="0"

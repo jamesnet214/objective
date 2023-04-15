@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using objective.Forms.Local.EventArgs;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -6,8 +7,6 @@ namespace objective.Forms.UI.Units
 {
         public class Table : ListBox
         {
-
-
                 public ICommand AreaClickedCommand
                 {
                         get { return (ICommand)GetValue(AreaClickedCommandProperty); }
@@ -33,10 +32,15 @@ namespace objective.Forms.UI.Units
                         if (e.OriginalSource is FrameworkElement source)
                         {
                                 var tag = source.Tag;
-
-                                this.AreaClickedCommand?.Execute(tag);
+                                if(e.ChangedButton == MouseButton.Left || e.ChangedButton == MouseButton.Right)
+                                {
+                                        this.AreaClickedCommand?.Execute(new TableCustomArgs()
+                                        {
+                                                mouseButton =e.ChangedButton,
+                                                gridAddType = (string)tag == "RightArea" ? Local.enums.GridAddType.Columns : Local.enums.GridAddType.Rows
+                                        });
+                                }
                         }
                 }
-
         }
 }

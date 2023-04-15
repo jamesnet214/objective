@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Jamesnet.Wpf.Controls;
 using Jamesnet.Wpf.Mvvm;
+using objective.Forms.Local.EventArgs;
 using objective.Forms.Local.Models;
 
 namespace objective.Forms.Local.ViewModels
@@ -17,15 +18,29 @@ namespace objective.Forms.Local.ViewModels
                 }
 
                 [RelayCommand]
-                private void AreaClicked(string arrow)
+                private void AreaClicked(TableCustomArgs args)
                 {
-                        if (arrow == "LeftArea")
+                        if(args.mouseButton == System.Windows.Input.MouseButton.Left)
                         {
-                                this.TableObject.ColumnsAdd();
+                                if(args.gridAddType == enums.GridAddType.Columns)
+                                {
+                                        this.TableObject.ColumnsAdd();
+                                }
+                                else
+                                {
+                                        this.TableObject.RowsAdd();
+                                }
                         }
-                        else if (arrow == "BottomArea")
+                        else if(args.mouseButton == System.Windows.Input.MouseButton.Right)
                         {
-                                this.TableObject.RowsAdd();
+                                if (args.gridAddType == enums.GridAddType.Columns)
+                                {
+                                        this.TableObject.ColumnsDelete();
+                                }
+                                else
+                                {
+                                        this.TableObject.RowsDelete();
+                                }
                         }
                 }
         }

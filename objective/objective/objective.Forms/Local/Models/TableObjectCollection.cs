@@ -43,11 +43,15 @@ namespace objective.Forms.Local.Models
                         this.Columns += 1;
 
                         var addCount = (row * this.Columns) - this.Count;
+                        PlusItem(addCount);
+                }
+                public void ColumnsDelete()
+                {
+                        int row = this.Rows;
+                        this.Columns -= 1;
 
-                        for(int i=0; i<addCount; i++)
-                        {
-                                this.Add(new TableObject(enums.TableObjectEnum.Text));
-                        }
+                        var deleteCount = this.Count - (row * this.Columns);
+                        DeleteItem(deleteCount);
                 }
 
                 public void RowsAdd()
@@ -57,9 +61,30 @@ namespace objective.Forms.Local.Models
 
                         var addCount = (columns * this.Rows) - this.Count;
 
-                        for (int i = 0; i < addCount; i++)
+                        PlusItem(addCount);
+                }
+
+                public void RowsDelete()
+                {
+                        int columns = this.Columns;
+                        this.Rows -= 1;
+
+                        var deleteCount = this.Count - (columns * this.Rows);
+                        DeleteItem(deleteCount);
+                }
+                private void PlusItem(int count)
+                {
+                        for (int i = 0; i < count; i++)
                         {
                                 this.Add(new TableObject(enums.TableObjectEnum.Text));
+                        }
+                }
+
+                private void DeleteItem(int count)
+                {
+                        for (int i = 0; i < count; i++)
+                        {
+                                this.RemoveAt(this.Count - 1);
                         }
                 }
 
