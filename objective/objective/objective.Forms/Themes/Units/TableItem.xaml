@@ -1,18 +1,21 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:units="clr-namespace:objective.Forms.UI.Units"
-    xmlns:views="clr-namespace:objective.Forms.UI.Views">
-    <Style TargetType="{x:Type views:MainContent}">
-        <Setter Property="Background" Value="White" />
+    xmlns:units="clr-namespace:objective.Forms.UI.Units">
+
+    <Style TargetType="{x:Type units:TableItem}">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type views:MainContent}">
+                <ControlTemplate TargetType="{x:Type units:TableItem}">
                     <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <units:Table ItemsSource="{Binding TableObject}" />
+                        <TextBox BorderThickness="0" Text="{Binding Data}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
