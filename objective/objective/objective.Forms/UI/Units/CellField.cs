@@ -1,77 +1,53 @@
 ﻿using objective.Core;
 using objective.Core.Enums;
 using objective.Models;
+using System;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace objective.Forms.UI.Units
 {
         public class CellField : CellFieldBase
-    {
-        public static readonly DependencyProperty TypeProperty = DependencyProperty.Register("Type", typeof(CellType), typeof(CellField), new PropertyMetadata(CellType.Label));
-        public static readonly DependencyProperty ColumnSpanProperty = DependencyProperty.Register("ColumnSpan", typeof(int), typeof(CellField), new PropertyMetadata(1, ColumnSpanPropertyChanged));
-        public static readonly DependencyProperty RowSpanProperty = DependencyProperty.Register("RowSpan", typeof(int), typeof(CellField), new PropertyMetadata(1, RowSpanPropertyChanged));
+        {
+                public static readonly DependencyProperty TypeProperty = DependencyProperty.Register("Type", typeof(CellType), typeof(CellField), new PropertyMetadata(CellType.Label));
 
-        public CellType Type
-        {
-            get { return (CellType)GetValue(TypeProperty); }
-            set { SetValue(TypeProperty, value); }
-        }
-        public int ColumnSpan
-        {
-            get { return (int)GetValue(ColumnSpanProperty); }
-            set { SetValue(ColumnSpanProperty, value); }
-        }
-        public int RowSpan
-        {
-            get { return (int)GetValue(RowSpanProperty); }
-            set { SetValue(RowSpanProperty, value); }
-        }
+                public CellType Type
+                {
+                        get { return (CellType)GetValue(TypeProperty); }
+                        set { SetValue(TypeProperty, value); }
+                }
 
-        static CellField()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(CellField), new FrameworkPropertyMetadata(typeof(CellField)));
-        }
+                static CellField()
+                {
+                        DefaultStyleKeyProperty.OverrideMetadata(typeof(CellField), new FrameworkPropertyMetadata(typeof(CellField)));
+                }
 
-        private static void ColumnSpanPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            CellField control = (CellField)d;
-            control.SetValue(Grid.ColumnSpanProperty, control.ColumnSpan);
-        }
-        private static void RowSpanPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            CellField control = (CellField)d;
-            control.SetValue(Grid.RowSpanProperty, control.RowSpan);
-        }
+                public override ReportObjectModel GetProperties()
+                {
+                        ReportObjectModel obj = new();
+                        obj.Width = Width;
+                        obj.CellType = Type;
+                        obj.FontWeight = FontWeight;
+                        obj.FontSize = FontSize;
+                        obj.Width = Width;
+                        obj.Height = Height;
+                        obj.Content = Content;
 
-        public override ReportObjectModel GetProperties()
-        {
-            ReportObjectModel obj = new();
-            obj.Width = Width;
-            obj.CellType = Type;
-            obj.FontWeight = FontWeight;
-            obj.FontSize = FontSize;
-            obj.Width = Width;
-            obj.Height = Height;
-            obj.RowSpan = RowSpan;
-            obj.ColumnSpan = ColumnSpan;
-            obj.Content = Content;
+                        return obj;
+                }
 
-            return obj;
+                public CellField SetProperties(ReportObjectModel obj)
+                {
+                        Width = obj.Width;
+                        Height = obj.Height;
+                        FontWeight = obj.FontWeight;
+                        FontSize = obj.FontSize;
+                        Content = obj.Content;
+                        Type = obj.CellType;
+
+                        return this;
+                }
         }
-
-        public CellField SetProperties(ReportObjectModel obj)
-        {
-            Width = obj.Width;
-            Height = obj.Height;
-            FontWeight = obj.FontWeight;
-            FontSize = obj.FontSize;
-            RowSpan = obj.RowSpan;
-            ColumnSpan = obj.ColumnSpan;
-            Content = obj.Content;
-            Type = obj.CellType;
-
-            return this;
-        }
-    }
 }

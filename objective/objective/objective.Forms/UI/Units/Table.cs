@@ -14,24 +14,10 @@ namespace objective.Forms.UI.Units
 {
         public class Table : DragMoveContent
         {
-                public static readonly DependencyProperty ItemsCountProperty = DependencyProperty.Register("ItemsCount", typeof(int), typeof(Table), new PropertyMetadata(0, ItemsCountPropertyChanged));
-                public static readonly DependencyProperty AddCellFieldCommandProperty = DependencyProperty.Register("AddCellFieldCommand", typeof(ICommand), typeof(Table), new PropertyMetadata(null));
                 public static readonly DependencyProperty RowsProperty = DependencyProperty.Register("Rows", typeof(string), typeof(Table), new PropertyMetadata(""));
                 public static readonly DependencyProperty ColumnsProperty = DependencyProperty.Register("Columns", typeof(string), typeof(Table), new PropertyMetadata(""));
                 private JamesGrid _grid;
                 private List<ReportObjectModel> _cellFields;
-
-                public int ItemsCount
-                {
-                        get { return (int)GetValue(ItemsCountProperty); }
-                        set { SetValue(ItemsCountProperty, value); }
-                }
-
-                public ICommand AddCellFieldCommand
-                {
-                        get { return (ICommand)GetValue(AddCellFieldCommandProperty); }
-                        set { SetValue(AddCellFieldCommandProperty, value); }
-                }
 
                 public string Rows
                 {
@@ -153,7 +139,7 @@ namespace objective.Forms.UI.Units
                                 {
                                         if (e.ChangedButton == MouseButton.Left)
                                         {
-                                                this.Columns += ", 100";
+                                                this.Columns += ", Auto";
                                                 SetCellField();
                                         }
                                         else

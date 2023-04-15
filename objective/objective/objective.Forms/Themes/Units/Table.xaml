@@ -23,8 +23,7 @@
         <Setter Property="BorderBrush" Value="#555555" />
         <Setter Property="Background" Value="#ffffff" />
         <Setter Property="Rows" Value="Auto, Auto, Auto" />
-        <Setter Property="Columns" Value="100, 150, 100, 150" />
-        <Setter Property="ItemsCount" Value="2" />
+        <Setter Property="Columns" Value="Auto, Auto, Auto, Auto" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type units:Table}">
@@ -44,8 +43,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
-                            >
+                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
                             <cotrolss:JamesGrid
                                 x:Name="PART_JamesGrid"
                                 Columns="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Columns, Mode=TwoWay}"

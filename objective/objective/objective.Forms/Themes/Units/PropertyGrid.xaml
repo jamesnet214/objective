@@ -339,9 +339,6 @@
 
             <Label Content="Columns" Style="{StaticResource Label}" />
             <TextBox Style="{StaticResource Columns}" />
-
-            <Label Content="ItemsCount" Style="{StaticResource Label}" />
-            <TextBox Style="{StaticResource ItemsCount}" />
         </ctrls:JamesGrid>
     </DataTemplate>
 
@@ -363,12 +360,6 @@
 
             <Label Content="Padding" Style="{StaticResource Label}" />
             <TextBox Style="{StaticResource Padding}" />
-
-            <Label Content="Row span" Style="{StaticResource Label}" />
-            <TextBox Style="{StaticResource RowSpan}" />
-
-            <Label Content="Column span" Style="{StaticResource Label}" />
-            <TextBox Style="{StaticResource ColSpan}" />
         </ctrls:JamesGrid>
     </DataTemplate>
 

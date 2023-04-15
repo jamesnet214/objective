@@ -28,8 +28,6 @@ namespace objective.Models
         public double Left { get; set; } = 0;
         public List<ReportObjectModel> CellFields { get; set; }
         public CellType CellType { get; set; }
-        public int RowSpan { get; set; }
-        public int ColumnSpan { get; set; }
         public string Base64 { get; set; }
     }
 }
