@@ -4,7 +4,7 @@
     xmlns:units="clr-namespace:objective.Forms.UI.Units"
     xmlns:views="clr-namespace:objective.Forms.UI.Views">
     <Style TargetType="{x:Type views:MainContent}">
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="#232323" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type views:MainContent}">
@@ -12,7 +12,29 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <units:Table ItemsSource="{Binding TableObject}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <units:ItemsList ItemsSource="{Binding Tools}" />
+                            <Border Grid.Column="1" Background="#DFDFDF" />
+
+                            <units:PageCanvas Grid.Column="1" ReportData="{Binding ReportSource}" />
+
+                            <StackPanel Grid.Column="2" Background="#EEEEEE">
+                                <Button
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Padding="8,2,8,2"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding SaveCommand}"
+                                    Content="Save" />
+                                <units:PropertyGrid Grid.Column="2" DataContext="{Binding SelectedObject}" />
+                            </StackPanel>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

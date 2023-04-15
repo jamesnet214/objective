@@ -2,46 +2,53 @@
 using CommunityToolkit.Mvvm.Input;
 using Jamesnet.Wpf.Controls;
 using Jamesnet.Wpf.Mvvm;
-using objective.Forms.Local.EventArgs;
+using objective.Core;
 using objective.Forms.Local.Models;
+using objective.Models;
+using Prism.Events;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace objective.Forms.Local.ViewModels
 {
         public partial class MainContentViewModel : ObservableBase, IViewLoadable
         {
                 [ObservableProperty]
-                private TableObjectCollection tableObject;
+                private ReportObject _selectedObject;
+
+                [ObservableProperty]
+                private List<ToolItem> _tools;
+
+                [ObservableProperty]
+                private ObservableCollection<ReportObject> _reportSource;
+
+                private readonly IEventAggregator _eh;
+                public MainContentViewModel(IEventAggregator eh)
+                {
+                        _eh = eh;
+                        //_eh.GetEvent<ReportLoadEvent>().Subscribe(ReportLoad);
+                        Tools = GetTools();
+                        this.ReportSource = new();
+                }
+
                 public void OnLoaded(IViewable smartWindow)
                 {
-                        this.TableObject = new();
-                        this.TableObject.Init();
+                }
+
+                private List<ToolItem> GetTools()
+                {
+                        List<ToolItem> source = new();
+                        source.Add(new ToolItem("Title"));
+                        source.Add(new ToolItem("Table"));
+                        source.Add(new ToolItem("Horizontal Line"));
+                        source.Add(new ToolItem("Image"));
+                        return source;
                 }
 
                 [RelayCommand]
-                private void AreaClicked(TableCustomArgs args)
+                private void SelectItem(ReportObject item)
                 {
-                        if(args.mouseButton == System.Windows.Input.MouseButton.Left)
-                        {
-                                if(args.gridAddType == enums.GridAddType.Columns)
-                                {
-                                        this.TableObject.ColumnsAdd();
-                                }
-                                else
-                                {
-                                        this.TableObject.RowsAdd();
-                                }
-                        }
-                        else if(args.mouseButton == System.Windows.Input.MouseButton.Right)
-                        {
-                                if (args.gridAddType == enums.GridAddType.Columns)
-                                {
-                                        this.TableObject.ColumnsDelete();
-                                }
-                                else
-                                {
-                                        this.TableObject.RowsDelete();
-                                }
-                        }
+                        SelectedObject = item;
                 }
         }
 }

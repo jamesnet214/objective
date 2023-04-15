@@ -14,4 +14,9 @@
     <ProjectReference Include="..\objective.Core\objective.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Local\enums\" />
+    <Folder Include="Local\EventArgs\" />
+  </ItemGroup>
+
 </Project>

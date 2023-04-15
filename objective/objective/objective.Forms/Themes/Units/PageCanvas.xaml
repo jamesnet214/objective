@@ -1,0 +1,51 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:units="clr-namespace:objective.Forms.UI.Units">
+
+    <Style TargetType="{x:Type units:PageCanvas}">
+        <Setter Property="SelectItemCommand" Value="{Binding SelectItemCommand}" />
+        <Setter Property="BorderBrush" Value="#000000" />
+        <Setter Property="BorderThickness" Value="0.51" />
+        <Setter Property="Background" Value="#ffffff" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type units:PageCanvas}">
+                    <Border>
+                        <ScrollViewer>
+                            <Border
+                                MinWidth="700"
+                                MaxWidth="900"
+                                Margin="20"
+                                VerticalAlignment="Top"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                                <Viewbox Stretch="UniformToFill">
+                                    <Canvas
+                                        x:Name="PART_Canvas"
+                                        Width="793.44"
+                                        Height="1122.24">
+                                        <!--<units:Header/>
+                                        <units:HorizontalLine/>
+                                        <units:Text/>
+
+                                        <units:Picture Canvas.Top="0"
+                                                       Canvas.Left="0"
+                                                       Width="200"/>
+                                        <units:Table Rows="Auto, 26, 26"
+                                                     Columns="60, 80, 80, 60, 80, 80"
+                                                     ItemsCount="18"
+                                                     Canvas.Top="0"
+                                                     Canvas.Left="0"/>-->
+                                    </Canvas>
+                                </Viewbox>
+                            </Border>
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
