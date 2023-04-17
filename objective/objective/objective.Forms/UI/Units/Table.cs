@@ -35,6 +35,7 @@ namespace objective.Forms.UI.Units
                 {
                         DefaultStyleKeyProperty.OverrideMetadata(typeof(Table), new FrameworkPropertyMetadata(typeof(Table)));
                 }
+
                 public override ReportObjectModel GetProperties()
                 {
                         ReportObjectModel obj = new();
@@ -93,15 +94,6 @@ namespace objective.Forms.UI.Units
                         else
                         {
                                 SetCellField();
-                        }
-                }
-
-                private static void ItemsCountPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-                {
-                        Table table = (Table)d;
-                        if (table._grid != null)
-                        {
-                                table.SetCellField();
                         }
                 }
 
