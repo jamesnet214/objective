@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Input;
 
@@ -34,6 +35,26 @@ namespace objective.Forms.UI.Units
                 static Table()
                 {
                         DefaultStyleKeyProperty.OverrideMetadata(typeof(Table), new FrameworkPropertyMetadata(typeof(Table)));
+                }
+                public Table()
+                {
+                        MouseLeftButtonDown += Table_MouseLeftButtonDown;
+                }
+
+                private void Table_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+                {
+                        UIElement clickedElement = e.Source as UIElement;
+
+                        if (clickedElement is CellField)
+                        {
+
+                        }
+                }
+
+                protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+                {
+                        base.OnPreviewMouseLeftButtonDown(e);
+
                 }
 
                 public override ReportObjectModel GetProperties()
