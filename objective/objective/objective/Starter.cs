@@ -1,7 +1,7 @@
 ﻿using objective.Properties;
 using System;
 
-namespace objective
+namespace objective 
 {
         public class Starter
         {
