@@ -7,17 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Local\enums\**" />
+    <Compile Remove="Local\EventArgs\**" />
+    <EmbeddedResource Remove="Local\enums\**" />
+    <EmbeddedResource Remove="Local\EventArgs\**" />
+    <None Remove="Local\enums\**" />
+    <None Remove="Local\EventArgs\**" />
+    <Page Remove="Local\enums\**" />
+    <Page Remove="Local\EventArgs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Jamesnet.Wpf" Version="1.0.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\objective.Core\objective.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Local\enums\" />
-    <Folder Include="Local\EventArgs\" />
   </ItemGroup>
 
 </Project>
