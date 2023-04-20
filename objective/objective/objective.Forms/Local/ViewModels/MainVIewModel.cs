@@ -1,6 +1,7 @@
 ﻿using Jamesnet.Wpf.Controls;
 using Jamesnet.Wpf.Mvvm;
 using Microsoft.Win32;
+using objective.Core.Test;
 using objective.Core.Events;
 using objective.Core.Names;
 using Prism.Events;
@@ -11,7 +12,7 @@ using System.IO;
 
 namespace objective.Forms.Local.ViewModels
 {
-		public partial class MainViewModel : ObservableBase, IViewLoadable
+		public partial class MainViewModel : ObservableBase, IViewLoadable, IViewClosedable
         {
                 private readonly IRegionManager _regionManager;
                 private readonly IContainerProvider _containerProvider;
@@ -78,5 +79,10 @@ namespace objective.Forms.Local.ViewModels
 								_eh.GetEvent<ReportLoadEvent> ().Publish (new Core.Models.EventsModel.FileInfo (FilePath, FileLoadName, line));
 						}
 				}
-        }
+
+				public void OnCloesd()
+				{
+						_eh.GetEvent<ClosedEvent> ().Publish ();
+				}
+		}
 }

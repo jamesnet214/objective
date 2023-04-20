@@ -34,6 +34,10 @@ namespace objective.Forms.Local.ViewModels
                 {
                         _eh = eh;
 						_eh.GetEvent<ReportLoadEvent> ().Subscribe (FileDataLoad);
+						_eh.GetEvent<ClosedEvent> ().Subscribe (()=>
+						{
+								this.Save ();
+						});
 						Tools = GetTools();
                         this.ReportSource = new();
                 }

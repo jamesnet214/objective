@@ -20,5 +20,6 @@ namespace objective.Core.Models.EventsModel
 						this.Data = Data;
 						this.IsForcedSave = IsForcedSave;
 				}
+				public FileInfo() { }
 		}
 }
