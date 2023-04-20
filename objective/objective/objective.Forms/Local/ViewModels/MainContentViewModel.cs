@@ -38,8 +38,8 @@ namespace objective.Forms.Local.ViewModels
                         this.ReportSource = new();
                 }
 
-				private string FilePath = $"{Environment.CurrentDirectory}";
-				private string FileLoadName = "Default.objective";
+				private string FilePath ;
+				private string FileLoadName;
 
 				private ObservableCollection<ReportObject> GetReportSource(string base64)
 				{
@@ -78,8 +78,8 @@ namespace objective.Forms.Local.ViewModels
 
 				private void FileDataLoad(Core.Models.EventsModel.FileInfo fileInfo)
 				{
-						FilePath = Path.GetDirectoryName (fileInfo.Path);
-						FileLoadName = Path.GetFileName (fileInfo.Name);
+						FilePath = fileInfo.Path;
+						FileLoadName = fileInfo.Name;
 
 						if (!String.IsNullOrWhiteSpace (fileInfo.Data))
 								ReportSource = GetReportSource (fileInfo.Data);
@@ -95,8 +95,8 @@ namespace objective.Forms.Local.ViewModels
 
 						if (ofd.ShowDialog () == true)
 						{
-								string FilePath = Path.GetDirectoryName (ofd.FileName);
-								string FileLoadName = Path.GetFileName (ofd.FileName);
+								FilePath = Path.GetDirectoryName (ofd.FileName);
+								FileLoadName = Path.GetFileName (ofd.FileName);
 								string line = null;
 								using (var reader = new StreamReader (ofd.FileName))
 								{
@@ -123,7 +123,7 @@ namespace objective.Forms.Local.ViewModels
 						string base64 = Convert.ToBase64String (bytes);
 						Clipboard.SetText (base64);
 
-						_eh.GetEvent<ReportSaveEvent> ().Publish (new Core.Models.EventsModel.FileInfo(FilePath, this.FileLoadName, base64));
+						_eh.GetEvent<ReportSaveEvent> ().Publish (new Core.Models.EventsModel.FileInfo(FilePath, FileLoadName, base64));
 				}
 				private List<ToolItem> GetTools()
                 {

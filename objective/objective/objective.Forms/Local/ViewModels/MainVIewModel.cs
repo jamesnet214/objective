@@ -43,9 +43,9 @@ namespace objective.Forms.Local.ViewModels
                         //        }
                         //}
 
-                        using (StreamWriter sw = new (PullPath))
+                        using (StreamWriter  sw = new (PullPath, false))
                         {
-                                sw.WriteLine (fileInfo.Data);
+                                sw.Write (fileInfo.Data);
                         }
 				}
 

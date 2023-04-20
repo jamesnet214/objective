@@ -14,7 +14,7 @@ namespace objective.Models
                 public double FontSize { get; set; } = 12;
                 public string Rows { get; set; }
                 public string Columns { get; set; }
-                public double Width { get; set; }
+                public double Width { get; set; } = 800;
                 public double Height { get; set; }
                 public Stretch Stretch { get; set; }
                 public Thickness BorderThickness { get; set; }
