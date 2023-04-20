@@ -136,7 +136,7 @@ namespace objective.Forms.UI.Units
                                 }
                                 else
                                 {
-                                        _grid.Children.Add(new CellField { Type = CellType.Label, Content = (i + 1).ToString() });
+                                        _grid.Children.Add(new CellField { Type = CellType.Label });
                                 }
                         }
                 }
