@@ -113,10 +113,18 @@ namespace objective.Forms.UI.Units
 
                                 switch (fi.Name)
                                 {
-                                        //case "Image": item = new Picture().SetProperties(new()); break;
-                                        case "Table": item = new Table(); break;
-                                                //case "Title": item = new Header(); break;
-                                                //case "Horizontal Line": item = new HorizontalLine(); break;
+                                        case "Image":
+                                                item = new Picture ().SetProperties (new ());
+                                                break;
+                                        case "Table":
+                                                item = new Table ();
+                                                break;
+                                        case "Title":
+                                                item = new Header ();
+                                                break;
+                                        case "Horizontal Line":
+                                                item = new HorizontalLine ();
+                                                break;
                                 }
 
                                 var p = e.GetPosition(this);

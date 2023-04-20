@@ -5,6 +5,9 @@
         <ResourceDictionary Source="/objective.Forms;component/Themes/Units/ItemsList.xaml" />
         <ResourceDictionary Source="/objective.Forms;component/Themes/Units/CellField.xaml" />
         <ResourceDictionary Source="/objective.Forms;component/Themes/Units/Table.xaml" />
+        <ResourceDictionary Source="/objective.Forms;component/Themes/Units/Text.xaml" />
+        <ResourceDictionary Source="/objective.Forms;component/Themes/Units/HorizontalLine.xaml" />
+        <ResourceDictionary Source="/objective.Forms;component/Themes/Units/Picture.xaml" />
         <ResourceDictionary Source="/objective.Forms;component/Themes/Units/PageCanvas.xaml" />
         <ResourceDictionary Source="/objective.Forms;component/Themes/Views/MainContent.xaml" />
         <ResourceDictionary Source="/objective.Forms;component/Themes/Views/MainWindow.xaml" />

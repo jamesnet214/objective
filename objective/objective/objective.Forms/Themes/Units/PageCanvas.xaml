@@ -27,18 +27,14 @@
                                         x:Name="PART_Canvas"
                                         Width="793.44"
                                         Height="1122.24">
-                                        <!--<units:Header/>
-                                        <units:HorizontalLine/>
-                                        <units:Text/>
+                                        <!--<units:Header />
+                                        <units:HorizontalLine />
+                                        <units:Text />
 
-                                        <units:Picture Canvas.Top="0"
-                                                       Canvas.Left="0"
-                                                       Width="200"/>
-                                        <units:Table Rows="Auto, 26, 26"
-                                                     Columns="60, 80, 80, 60, 80, 80"
-                                                     ItemsCount="18"
-                                                     Canvas.Top="0"
-                                                     Canvas.Left="0"/>-->
+                                        <units:Picture
+                                            Canvas.Left="0"
+                                            Canvas.Top="0"
+                                            Width="200" />-->
                                     </Canvas>
                                 </Viewbox>
                             </Border>
