@@ -6,10 +6,9 @@
     <Style TargetType="{x:Type units:Picture}">
         <Setter Property="Canvas.Top" Value="0" />
         <Setter Property="Canvas.Left" Value="0" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="Red" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="UseLayoutRounding" Value="True" />
-        <Setter Property="Margin" Value="10,10,10,10" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Focusable" Value="True" />
         <Setter Property="Template">
@@ -19,11 +18,22 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <Image
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Source="{TemplateBinding ImageSource}"
-                            Stretch="{TemplateBinding Stretch}" />
+                        <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Image
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                Source="{TemplateBinding ImageSource}"
+                                Stretch="{TemplateBinding Stretch}" />
+                        </Grid>
+
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
