@@ -9,6 +9,7 @@ using Prism.Ioc;
 using Prism.Regions;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace objective.Forms.Local.ViewModels
 {
@@ -60,24 +61,26 @@ namespace objective.Forms.Local.ViewModels
                                 mainRegion.Add(loginContent);
                         }
                         mainRegion.Activate(loginContent);
+                        Task.Run (() =>
+                        {
+								OpenFileDialog ofd = new ();
+								ofd.InitialDirectory = Environment.CurrentDirectory;
+								ofd.Filter = "objective files(*.objective) | *.objective";
+								ofd.Multiselect = false;
 
-						OpenFileDialog ofd = new ();
-						ofd.InitialDirectory = Environment.CurrentDirectory;
-						ofd.Filter = "objective files(*.objective) | *.objective";
-						ofd.Multiselect = false;
-
-						if (ofd.ShowDialog () == true)
-						{
-								string FilePath = Path.GetDirectoryName (ofd.FileName);
-								string FileLoadName = Path.GetFileName (ofd.FileName);
-								string line = null;
-								using (var reader = new StreamReader (ofd.FileName))
+								if (ofd.ShowDialog () == true)
 								{
-										// 파일 내용 한 줄씩 읽기
-										line = reader.ReadToEnd ();
+										string FilePath = Path.GetDirectoryName (ofd.FileName);
+										string FileLoadName = Path.GetFileName (ofd.FileName);
+										string line = null;
+										using (var reader = new StreamReader (ofd.FileName))
+										{
+												// 파일 내용 한 줄씩 읽기
+												line = reader.ReadToEnd ();
+										}
+										_eh.GetEvent<ReportLoadEvent> ().Publish (new Core.Models.EventsModel.FileInfo (FilePath, FileLoadName, line));
 								}
-								_eh.GetEvent<ReportLoadEvent> ().Publish (new Core.Models.EventsModel.FileInfo (FilePath, FileLoadName, line));
-						}
+						});
 				}
 
 				public void OnCloesd()

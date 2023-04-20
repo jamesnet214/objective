@@ -14,7 +14,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace objective.Forms.Local.ViewModels
 {
@@ -86,7 +88,11 @@ namespace objective.Forms.Local.ViewModels
 						FileLoadName = fileInfo.Name;
 
 						if (!String.IsNullOrWhiteSpace (fileInfo.Data))
-								ReportSource = GetReportSource (fileInfo.Data);
+								Application.Current.Dispatcher.Invoke (() =>
+								{ 
+										// UI 스레드에서 실행할 작업
+										ReportSource = GetReportSource (fileInfo.Data);
+								}, null);
 				}
 
 				[RelayCommand]
