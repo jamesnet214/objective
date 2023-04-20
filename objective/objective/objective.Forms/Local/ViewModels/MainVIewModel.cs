@@ -7,12 +7,11 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Regions;
 using System;
-using System.Buffers.Text;
 using System.IO;
 
 namespace objective.Forms.Local.ViewModels
 {
-        public partial class MainViewModel : ObservableBase, IViewLoadable
+		public partial class MainViewModel : ObservableBase, IViewLoadable
         {
                 private readonly IRegionManager _regionManager;
                 private readonly IContainerProvider _containerProvider;

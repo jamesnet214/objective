@@ -1,28 +1,24 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Jamesnet.Wpf.Controls;
 using Jamesnet.Wpf.Mvvm;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using objective.Core;
+using objective.Core.Events;
 using objective.Forms.Local.Models;
+using objective.Forms.UI.Units;
 using objective.Models;
 using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reflection.PortableExecutable;
+using System.IO;
 using System.Text;
 using System.Windows;
-using Newtonsoft.Json;
-using objective.Forms.UI.Units;
-using objective.Core.Events;
-using System.Security.Cryptography.Xml;
-using Microsoft.Win32;
-using System.IO;
-using System.Buffers.Text;
 
 namespace objective.Forms.Local.ViewModels
 {
-        public partial class MainContentViewModel : ObservableBase
+		public partial class MainContentViewModel : ObservableBase
         {
                 [ObservableProperty]
                 private ReportObject _selectedObject;
