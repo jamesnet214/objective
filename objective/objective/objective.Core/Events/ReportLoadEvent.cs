@@ -1,8 +1,9 @@
-﻿using Prism.Events;
+﻿using objective.Core.Models.EventsModel;
+using Prism.Events;
 
 namespace objective.Core.Events
 {
-		public class ReportLoadEvent : PubSubEvent<string>
-    {
-    }
+		public class ReportLoadEvent : PubSubEvent<FileInfo>
+		{
+		}
 }

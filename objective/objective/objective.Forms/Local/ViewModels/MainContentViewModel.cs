@@ -15,10 +15,14 @@ using System.Windows;
 using Newtonsoft.Json;
 using objective.Forms.UI.Units;
 using objective.Core.Events;
+using System.Security.Cryptography.Xml;
+using Microsoft.Win32;
+using System.IO;
+using System.Buffers.Text;
 
 namespace objective.Forms.Local.ViewModels
 {
-        public partial class MainContentViewModel : ObservableBase, IViewLoadable
+        public partial class MainContentViewModel : ObservableBase
         {
                 [ObservableProperty]
                 private ReportObject _selectedObject;
@@ -33,14 +37,14 @@ namespace objective.Forms.Local.ViewModels
                 public MainContentViewModel(IEventAggregator eh)
                 {
                         _eh = eh;
-                        //_eh.GetEvent<ReportLoadEvent>().Subscribe(ReportLoad);
-                        Tools = GetTools();
+						_eh.GetEvent<ReportLoadEvent> ().Subscribe (FileDataLoad);
+						Tools = GetTools();
                         this.ReportSource = new();
                 }
 
-                public void OnLoaded(IViewable smartWindow)
-                {
-                }
+				private string FilePath = $"{Environment.CurrentDirectory}";
+				private string FileLoadName = "Default.objective";
+
 				private ObservableCollection<ReportObject> GetReportSource(string base64)
 				{
 						byte[] bytes = Convert.FromBase64String (base64);
@@ -76,6 +80,37 @@ namespace objective.Forms.Local.ViewModels
 						return new ObservableCollection<ReportObject> (list);
 				}
 
+				private void FileDataLoad(Core.Models.EventsModel.FileInfo fileInfo)
+				{
+						FilePath = Path.GetDirectoryName (fileInfo.Path);
+						FileLoadName = Path.GetFileName (fileInfo.Name);
+
+						if (!String.IsNullOrWhiteSpace (fileInfo.Data))
+								ReportSource = GetReportSource (fileInfo.Data);
+				}
+
+				[RelayCommand]
+				private void Load()
+				{
+						OpenFileDialog ofd = new ();
+						ofd.InitialDirectory = Environment.CurrentDirectory;
+						ofd.Filter = "objective files(*.objective) | *.objective";
+						ofd.Multiselect = false;
+
+						if (ofd.ShowDialog () == true)
+						{
+								string FilePath = Path.GetDirectoryName (ofd.FileName);
+								string FileLoadName = Path.GetFileName (ofd.FileName);
+								string line = null;
+								using (var reader = new StreamReader (ofd.FileName))
+								{
+										// 파일 내용 한 줄씩 읽기
+										line = reader.ReadToEnd ();
+								}
+								_eh.GetEvent<ReportLoadEvent> ().Publish (new Core.Models.EventsModel.FileInfo (FilePath, FileLoadName, line));
+						}
+				}
+
 				[RelayCommand]
 				private void Save()
 				{
@@ -92,7 +127,7 @@ namespace objective.Forms.Local.ViewModels
 						string base64 = Convert.ToBase64String (bytes);
 						Clipboard.SetText (base64);
 
-						_eh.GetEvent<ReportSaveEvent> ().Publish (base64);
+						_eh.GetEvent<ReportSaveEvent> ().Publish (new Core.Models.EventsModel.FileInfo(FilePath, this.FileLoadName, base64));
 				}
 				private List<ToolItem> GetTools()
                 {
