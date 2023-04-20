@@ -30,17 +30,18 @@ namespace objective.Forms.Local.ViewModels
 				{
                         string PullPath = $@"{fileInfo.Path}\{fileInfo.Name}";
 
-                        if (fileInfo.IsForcedSave = false)
-                        {
-                                if (File.Exists (PullPath))
-                                {
-                                        SaveFileDialog sfd = new ();
-                                        sfd.InitialDirectory = fileInfo.Path;
-                                        sfd.FileName = fileInfo.Name;
-                                        if (sfd.ShowDialog () == false)
-                                                return;
-                                }
-                        }
+                        // 다른이름으로 저장하기 기능 추가구현할때 필요
+                        //if (fileInfo.IsForcedSave = false)
+                        //{
+                        //        if (File.Exists (PullPath))
+                        //        {
+                        //                SaveFileDialog sfd = new ();
+                        //                sfd.InitialDirectory = fileInfo.Path;
+                        //                sfd.FileName = fileInfo.Name;
+                        //                if (sfd.ShowDialog () == false)
+                        //                        return;
+                        //        }
+                        //}
 
                         using (StreamWriter sw = new (PullPath))
                         {
