@@ -33,7 +33,6 @@
                                 Source="{TemplateBinding ImageSource}"
                                 Stretch="{TemplateBinding Stretch}" />
                         </Grid>
-
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

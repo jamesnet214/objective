@@ -8,10 +8,11 @@ namespace objective.Core.Test
 		{
 				public ObjectiveWindow()
 				{
-						Closed += ObjectiveWindow_Closed;
+						Closing += ObjectiveWindow_Closing;
+						;
 				}
 
-				private void ObjectiveWindow_Closed(object? sender, EventArgs e)
+				private void ObjectiveWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
 				{
 						FrameworkElement frameworkElement = sender as FrameworkElement;
 						IViewClosedable viewClosedable = default;
