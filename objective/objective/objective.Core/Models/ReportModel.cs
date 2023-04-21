@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace objective.Models
 {
-    public class ReportModel
-    {
-        public List<ReportObjectModel> Objects { get; set; }
-    }
+		public class ReportModel
+		{
+				public List<ReportObjectModel> Objects { get; set; }
+		}
 }

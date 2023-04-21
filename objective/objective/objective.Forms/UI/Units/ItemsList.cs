@@ -1,68 +1,88 @@
-﻿using System.Windows;
+﻿using objective.Forms.Local.Models;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace objective.Forms.UI.Units
 {
-    public class ItemsList : ListBox
-    {
-        static ItemsList()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ItemsList), new FrameworkPropertyMetadata(typeof(ItemsList)));
-        }
+		public class ItemsList : ListBox
+		{
+				public ICommand NewPageCommand
+				{
+						get { return (ICommand)GetValue (NewPageCommandProperty); }
+						set { SetValue (NewPageCommandProperty, value); }
+				}
 
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            return new ItemsListItem();
-        }
+				// Using a DependencyProperty as the backing store for NewPageCommand.  This enables animation, styling, binding, etc...
+				public static readonly DependencyProperty NewPageCommandProperty =
+					DependencyProperty.Register ("NewPageCommand", typeof (ICommand), typeof (ItemsList), new PropertyMetadata (null));
 
-        private object dragData;
 
-        public ItemsList()
-        {
-            DragEnter += ListBox_DragEnter;
-            DragLeave += ListBox_DragLeave;
-            DragOver += ListBox_DragOver;
-        }
+				static ItemsList()
+				{
+						DefaultStyleKeyProperty.OverrideMetadata (typeof (ItemsList), new FrameworkPropertyMetadata (typeof (ItemsList)));
+				}
 
-        private void ListBox_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(typeof(ListBoxItem)))
-            {
-                e.Effects = DragDropEffects.Move;
-            }
-            else
-            {
-                e.Effects = DragDropEffects.None;
-            }
-        }
+				protected override DependencyObject GetContainerForItemOverride()
+				{
+						return new ItemsListItem ();
+				}
 
-        private void ListBox_DragLeave(object sender, DragEventArgs e)
-        {
-            e.Effects = DragDropEffects.None;
-        }
+				private object dragData;
 
-        private void ListBox_DragOver(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(typeof(ListBoxItem)))
-            {
-                e.Effects = DragDropEffects.Move;
-            }
-            else
-            {
-                e.Effects = DragDropEffects.None;
-            }
-        }
+				public ItemsList()
+				{
+						DragEnter += ListBox_DragEnter;
+						DragLeave += ListBox_DragLeave;
+						DragOver += ListBox_DragOver;
 
-        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            base.OnPreviewMouseLeftButtonDown(e);
+						PreviewMouseLeftButtonDown += ItemsList_PreviewMouseLeftButtonDown;
+				}
 
-            if (e.OriginalSource is FrameworkElement fe)
-            {
-                dragData = fe.DataContext;
-                DragDrop.DoDragDrop(this, dragData, DragDropEffects.Move);
-            }
-        }
-    }
+				private void ItemsList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+				{
+						base.OnPreviewMouseLeftButtonDown (e);
+
+						if (e.OriginalSource is FrameworkElement fe)
+						{
+								dragData = fe.DataContext;
+								var data = (ToolItem)dragData;
+								if (data.Name == "Page")
+								{
+										this.NewPageCommand.Execute (null);
+										return;
+								}
+								DragDrop.DoDragDrop (this, dragData, DragDropEffects.Move);
+						}
+				}
+
+				private void ListBox_DragEnter(object sender, DragEventArgs e)
+				{
+						if (e.Data.GetDataPresent (typeof (ListBoxItem)))
+						{
+								e.Effects = DragDropEffects.Move;
+						}
+						else
+						{
+								e.Effects = DragDropEffects.None;
+						}
+				}
+
+				private void ListBox_DragLeave(object sender, DragEventArgs e)
+				{
+						e.Effects = DragDropEffects.None;
+				}
+
+				private void ListBox_DragOver(object sender, DragEventArgs e)
+				{
+						if (e.Data.GetDataPresent (typeof (ListBoxItem)))
+						{
+								e.Effects = DragDropEffects.Move;
+						}
+						else
+						{
+								e.Effects = DragDropEffects.None;
+						}
+				}
+		}
 }
