@@ -63,22 +63,6 @@ namespace objective.Forms.UI.Units
                         }
                 }
 
-
-                protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
-                {
-                        base.OnPreviewMouseLeftButtonUp(e);
-                }
-
-                protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
-                {
-                        base.OnMouseLeftButtonUp(e);
-                }
-
-                protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
-                {
-                        base.OnMouseLeftButtonDown(e);
-                }
-
                 protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
                 {
                         base.OnPreviewMouseLeftButtonDown(e);
