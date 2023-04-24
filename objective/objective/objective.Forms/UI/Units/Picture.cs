@@ -1,16 +1,15 @@
-﻿using objective.Core;
+﻿using Microsoft.Win32;
+using objective.Core;
 using objective.Models;
-using System.IO;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Microsoft.Win32;
 
 namespace objective.Forms.UI.Units
 {
-    public class Picture : DragMoveContent
+		public class Picture : DragMoveContent
     {
         public static readonly DependencyProperty StretchProperty = DependencyProperty.Register("Stretch", typeof(System.Windows.Media.Stretch), typeof(Picture), new PropertyMetadata(System.Windows.Media.Stretch.Uniform));
         public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register("ImageSource", typeof(BitmapImage), typeof(Picture), new PropertyMetadata(null));
