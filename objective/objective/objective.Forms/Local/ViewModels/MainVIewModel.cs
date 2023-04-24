@@ -25,30 +25,6 @@ namespace objective.Forms.Local.ViewModels
                         _regionManager = regionManager;
                         _containerProvider = containerProvider;
                         _eh = eh;
-						this._eh.GetEvent<ReportSaveEvent> ().Subscribe (ReportSave);
-				}
-
-				private void ReportSave(Core.Models.EventsModel.FileInfo fileInfo)
-				{
-                        string PullPath = $@"{fileInfo.Path}\{fileInfo.Name}";
-
-                        // 다른이름으로 저장하기 기능 추가구현할때 필요
-                        //if (fileInfo.IsForcedSave = false)
-                        //{
-                        //        if (File.Exists (PullPath))
-                        //        {
-                        //                SaveFileDialog sfd = new ();
-                        //                sfd.InitialDirectory = fileInfo.Path;
-                        //                sfd.FileName = fileInfo.Name;
-                        //                if (sfd.ShowDialog () == false)
-                        //                        return;
-                        //        }
-                        //}
-
-                        using (StreamWriter  sw = new (PullPath, false))
-                        {
-                                sw.Write (fileInfo.Data);
-                        }
 				}
 
 				public void OnLoaded(IViewable view)
@@ -61,26 +37,6 @@ namespace objective.Forms.Local.ViewModels
                                 mainRegion.Add(loginContent);
                         }
                         mainRegion.Activate(loginContent);
-                        Task.Run (() =>
-                        {
-								OpenFileDialog ofd = new ();
-								ofd.InitialDirectory = Environment.CurrentDirectory;
-								ofd.Filter = "objective files(*.objective) | *.objective";
-								ofd.Multiselect = false;
-
-								if (ofd.ShowDialog () == true)
-								{
-										string FilePath = Path.GetDirectoryName (ofd.FileName);
-										string FileLoadName = Path.GetFileName (ofd.FileName);
-										string line = null;
-										using (var reader = new StreamReader (ofd.FileName))
-										{
-												// 파일 내용 한 줄씩 읽기
-												line = reader.ReadToEnd ();
-										}
-										_eh.GetEvent<ReportLoadEvent> ().Publish (new Core.Models.EventsModel.FileInfo (FilePath, FileLoadName, line));
-								}
-						});
 				}
 
 				public void OnCloesd()

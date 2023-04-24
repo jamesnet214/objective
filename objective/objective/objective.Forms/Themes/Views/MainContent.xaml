@@ -4,6 +4,7 @@
     xmlns:controls="clr-namespace:Jamesnet.Wpf.Controls;assembly=Jamesnet.Wpf"
     xmlns:units="clr-namespace:objective.Forms.UI.Units"
     xmlns:views="clr-namespace:objective.Forms.UI.Views">
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Style TargetType="{x:Type views:MainContent}">
         <Setter Property="Background" Value="#232323" />
         <Setter Property="Template">
@@ -43,6 +44,23 @@
 
                                 <units:PropertyGrid DataContext="{Binding SelectedObject}" />
                             </StackPanel>
+                            <Grid
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                Background="Transparent"
+                                Visibility="{Binding IsLoad, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <Grid
+                                Grid.Column="1"
+                                Background="Gray"
+                                Opacity="0.5"
+                                Visibility="{Binding IsLoad, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <Label
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="Loading..."
+                                    FontSize="40"
+                                    Foreground="Black" />
+                            </Grid>
                         </Grid>
                     </Border>
                 </ControlTemplate>

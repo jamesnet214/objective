@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Jamesnet.Wpf.Controls;
 using Jamesnet.Wpf.Mvvm;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using objective.Core;
-using objective.Core.Events;
 using objective.Forms.Local.Models;
 using objective.Models;
 using Prism.Events;
@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,8 +20,10 @@ using System.Windows;
 
 namespace objective.Forms.Local.ViewModels
 {
-		public partial class MainContentViewModel : ObservableBase
+		public partial class MainContentViewModel : ObservableBase, IViewLoadable
 		{
+				[ObservableProperty]
+				private bool isLoad = false;
 				[ObservableProperty]
 				private ReportObject _selectedObject;
 
@@ -34,13 +37,16 @@ namespace objective.Forms.Local.ViewModels
 				public MainContentViewModel(IEventAggregator eh)
 				{
 						_eh = eh;
-						_eh.GetEvent<ReportLoadEvent> ().Subscribe (FileDataLoad);
-						//_eh.GetEvent<ClosedEvent> ().Subscribe (()=>
-						//{
-						//		this.Save ();
-						//});
 						Tools = GetTools ();
 						this.Pages = new ();
+				}
+
+				public void OnLoaded(IViewable smartWindow)
+				{
+						Task.Run (() =>
+						{
+								Load ();
+						});
 				}
 
 				private string FilePath;
@@ -53,7 +59,10 @@ namespace objective.Forms.Local.ViewModels
 
 						var objs = JsonConvert.DeserializeObject<List<ReportModel>> (json);
 						if (objs.Count > 0)
+						{
 								this.Pages.Clear ();
+								IsLoad = true;
+						}
 						foreach (var obj in objs)
 						{
 								this.Pages.Add (new PageModel ());
@@ -68,21 +77,9 @@ namespace objective.Forms.Local.ViewModels
 										{
 												this.Pages[i].GetReportSource (objs[i]);
 										}
+										IsLoad = false;
 								}, null);
 						});
-				}
-
-				private void FileDataLoad(Core.Models.EventsModel.FileInfo fileInfo)
-				{
-						FilePath = fileInfo.Path;
-						FileLoadName = fileInfo.Name;
-
-						if (!String.IsNullOrWhiteSpace (fileInfo.Data))
-								Application.Current.Dispatcher.Invoke (() =>
-								{
-										// UI 스레드에서 실행할 작업
-										GetReportSource (fileInfo.Data);
-								}, null);
 				}
 
 				[RelayCommand]
@@ -103,7 +100,14 @@ namespace objective.Forms.Local.ViewModels
 										// 파일 내용 한 줄씩 읽기
 										line = reader.ReadToEnd ();
 								}
-								_eh.GetEvent<ReportLoadEvent> ().Publish (new Core.Models.EventsModel.FileInfo (FilePath, FileLoadName, line));
+								IsLoad = false;
+								if (!String.IsNullOrWhiteSpace (FilePath))
+										Application.Current.Dispatcher.Invoke (() =>
+										{
+												
+												// UI 스레드에서 실행할 작업
+												GetReportSource (line);
+										}, null);
 						}
 				}
 
@@ -126,7 +130,25 @@ namespace objective.Forms.Local.ViewModels
 						byte[] bytes = Encoding.UTF8.GetBytes (json);
 						string base64 = Convert.ToBase64String (bytes);
 
-						_eh.GetEvent<ReportSaveEvent> ().Publish (new Core.Models.EventsModel.FileInfo (FilePath, FileLoadName, base64));
+						string PullPath = $@"{FilePath}\{FileLoadName}";
+
+						// 다른이름으로 저장하기 기능 추가구현할때 필요
+						//if (fileInfo.IsForcedSave = false)
+						//{
+						//        if (File.Exists (PullPath))
+						//        {
+						//                SaveFileDialog sfd = new ();
+						//                sfd.InitialDirectory = fileInfo.Path;
+						//                sfd.FileName = fileInfo.Name;
+						//                if (sfd.ShowDialog () == false)
+						//                        return;
+						//        }
+						//}
+
+						using (StreamWriter sw = new (PullPath, false))
+						{
+								sw.Write (base64);
+						}
 				}
 
 				private List<ToolItem> GetTools()
