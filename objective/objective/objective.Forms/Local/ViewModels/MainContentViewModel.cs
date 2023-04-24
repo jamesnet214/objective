@@ -8,12 +8,14 @@ using objective.Core;
 using objective.Core.Events;
 using objective.Forms.Local.Models;
 using objective.Models;
+using objective.SampleData;
 using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -51,7 +53,24 @@ namespace objective.Forms.Local.ViewModels
 				{
 						Task.Run (() =>
 						{
-								Load ();
+								OpenFileDialog ofd = new ();
+								ofd.InitialDirectory = Environment.CurrentDirectory;
+								ofd.Filter = "objective files(*.objective) | *.objective";
+								ofd.Multiselect = false;
+
+								if (ofd.ShowDialog () == false)
+								{
+										FilePath = Environment.CurrentDirectory;
+										FileLoadName = "Default.objective";
+										File.Create ("Default.objective");
+										Application.Current.Dispatcher.Invoke (() =>
+										{
+												GetReportSource (EncryptData.Base64);
+										}, null);
+										return;
+								}
+
+								this.FileLoad (ofd);
 						});
 				}
 
@@ -96,23 +115,28 @@ namespace objective.Forms.Local.ViewModels
 						ofd.Filter = "objective files(*.objective) | *.objective";
 						ofd.Multiselect = false;
 
-						if (ofd.ShowDialog () == true)
+						if (ofd.ShowDialog () == false)
+								return;
+
+						this.FileLoad (ofd);
+				}
+
+				private void FileLoad(OpenFileDialog ofd)
+				{
+						FilePath = Path.GetDirectoryName (ofd.FileName);
+						FileLoadName = Path.GetFileName (ofd.FileName);
+						string line = null;
+						using (var reader = new StreamReader (ofd.FileName))
 						{
-								FilePath = Path.GetDirectoryName (ofd.FileName);
-								FileLoadName = Path.GetFileName (ofd.FileName);
-								string line = null;
-								using (var reader = new StreamReader (ofd.FileName))
-								{
-										// 파일 내용 한 줄씩 읽기
-										line = reader.ReadToEnd ();
-								}
-								IsLoad = false;
-								if (!String.IsNullOrWhiteSpace (FilePath))
-										Application.Current.Dispatcher.Invoke (() =>
-										{
-												GetReportSource (line);
-										}, null);
+								// 파일 내용 한 줄씩 읽기
+								line = reader.ReadToEnd ();
 						}
+						IsLoad = false;
+						if (!String.IsNullOrWhiteSpace (FilePath))
+								Application.Current.Dispatcher.Invoke (() =>
+								{
+										GetReportSource (line);
+								}, null);
 				}
 
 				[RelayCommand]
@@ -149,7 +173,7 @@ namespace objective.Forms.Local.ViewModels
 						string base64 = Convert.ToBase64String (bytes);
 
 						string PullPath = $@"{FilePath}\{FileLoadName}";
-
+						Clipboard.SetText (base64);
 						using (StreamWriter sw = new (PullPath, false))
 						{
 								sw.Write (base64);

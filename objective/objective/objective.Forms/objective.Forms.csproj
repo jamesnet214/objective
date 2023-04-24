@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\objective.SampleData\objective.SampleData.csproj" />
     <ProjectReference Include="..\objective.Core\objective.Core.csproj" />
   </ItemGroup>
 
