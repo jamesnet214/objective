@@ -5,6 +5,7 @@ using Jamesnet.Wpf.Mvvm;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using objective.Core;
+using objective.Core.Events;
 using objective.Forms.Local.Models;
 using objective.Models;
 using Prism.Events;
@@ -12,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,6 +39,11 @@ namespace objective.Forms.Local.ViewModels
 						_eh = eh;
 						Tools = GetTools ();
 						this.Pages = new ();
+
+						this._eh.GetEvent<ClosedEvent> ().Subscribe (() =>
+						{
+								this.Save ();
+						});
 				}
 
 				public void OnLoaded(IViewable smartWindow)
@@ -104,8 +109,6 @@ namespace objective.Forms.Local.ViewModels
 								if (!String.IsNullOrWhiteSpace (FilePath))
 										Application.Current.Dispatcher.Invoke (() =>
 										{
-												
-												// UI 스레드에서 실행할 작업
 												GetReportSource (line);
 										}, null);
 						}
@@ -131,19 +134,6 @@ namespace objective.Forms.Local.ViewModels
 						string base64 = Convert.ToBase64String (bytes);
 
 						string PullPath = $@"{FilePath}\{FileLoadName}";
-
-						// 다른이름으로 저장하기 기능 추가구현할때 필요
-						//if (fileInfo.IsForcedSave = false)
-						//{
-						//        if (File.Exists (PullPath))
-						//        {
-						//                SaveFileDialog sfd = new ();
-						//                sfd.InitialDirectory = fileInfo.Path;
-						//                sfd.FileName = fileInfo.Name;
-						//                if (sfd.ShowDialog () == false)
-						//                        return;
-						//        }
-						//}
 
 						using (StreamWriter sw = new (PullPath, false))
 						{
