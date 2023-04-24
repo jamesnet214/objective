@@ -5,6 +5,7 @@
 
     <Style TargetType="{x:Type units:ItemsList}">
         <Setter Property="NewPageCommand" Value="{Binding NewPageCommand}" />
+        <Setter Property="RemovePageCommand" Value="{Binding RemovePageCommand}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="Margin" Value="10,10,10,10" />

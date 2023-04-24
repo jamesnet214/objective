@@ -65,5 +65,10 @@ namespace objective.Forms.Local.Models
 						}
 						this.ReportSource = new ObservableCollection<ReportObject> (list);
 				}
+
+				public void Clear()
+				{
+						this.ReportSource.Clear ();
+				}
 		}
 }

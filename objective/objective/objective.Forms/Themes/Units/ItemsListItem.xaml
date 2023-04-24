@@ -36,6 +36,10 @@
                         <DataTrigger Binding="{Binding Name}" Value="Page">
                             <Setter TargetName="path" Property="Data" Value="{StaticResource GPage}" />
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding Name}" Value="RemovePage">
+                            <Setter TargetName="path" Property="Data" Value="{StaticResource GPage}" />
+                            <Setter TargetName="path" Property="Fill" Value="Red" />
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding Name}" Value="Title">
                             <Setter TargetName="path" Property="Data" Value="{StaticResource GTitle}" />
                         </DataTrigger>

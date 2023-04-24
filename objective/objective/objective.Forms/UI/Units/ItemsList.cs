@@ -17,6 +17,16 @@ namespace objective.Forms.UI.Units
 				public static readonly DependencyProperty NewPageCommandProperty =
 					DependencyProperty.Register ("NewPageCommand", typeof (ICommand), typeof (ItemsList), new PropertyMetadata (null));
 
+				public ICommand RemovePageCommand
+				{
+						get { return (ICommand)GetValue (RemovePageCommandProperty); }
+						set { SetValue (RemovePageCommandProperty, value); }
+				}
+
+				// Using a DependencyProperty as the backing store for NewPageCommand.  This enables animation, styling, binding, etc...
+				public static readonly DependencyProperty RemovePageCommandProperty =
+					DependencyProperty.Register ("RemovePageCommand", typeof (ICommand), typeof (ItemsList), new PropertyMetadata (null));
+
 
 				static ItemsList()
 				{
@@ -50,6 +60,11 @@ namespace objective.Forms.UI.Units
 								if (data.Name == "Page")
 								{
 										this.NewPageCommand.Execute (null);
+										return;
+								}
+								else if(data.Name =="RemovePage")
+								{
+										this.RemovePageCommand.Execute (null);
 										return;
 								}
 								DragDrop.DoDragDrop (this, dragData, DragDropEffects.Move);

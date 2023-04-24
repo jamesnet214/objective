@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -121,6 +122,20 @@ namespace objective.Forms.Local.ViewModels
 				}
 
 				[RelayCommand]
+				private void RemovePage()
+				{
+						if(this.Pages.Count == 1)
+						{
+								this.Pages[0].Clear ();
+								return;
+						}
+
+						var lastPages = this.Pages.Last ();
+
+						this.Pages.Remove (lastPages);
+				}
+
+				[RelayCommand]
 				private void Save()
 				{
 						List<ReportModel> reportModels = new List<ReportModel> ();
@@ -145,6 +160,7 @@ namespace objective.Forms.Local.ViewModels
 				{
 						List<ToolItem> source = new ();
 						source.Add (new ToolItem ("Page"));
+						source.Add (new ToolItem ("RemovePage"));
 						source.Add (new ToolItem ("Title"));
 						source.Add (new ToolItem ("Table"));
 						source.Add (new ToolItem ("Horizontal Line"));
