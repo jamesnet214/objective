@@ -11,6 +11,7 @@ using objective.Models;
 using objective.SampleData;
 using Prism.Events;
 using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -62,6 +63,9 @@ namespace objective.Forms.Local.ViewModels
 								{
 										FilePath = Environment.CurrentDirectory;
 										FileLoadName = "Default.objective";
+										string PullPath = $@"{FilePath}\{FileLoadName}";
+
+										using (StreamWriter sw = new (PullPath, false))
 										File.Create ("Default.objective");
 										Application.Current.Dispatcher.Invoke (() =>
 										{
@@ -83,6 +87,13 @@ namespace objective.Forms.Local.ViewModels
 						string json = Encoding.UTF8.GetString (bytes);
 
 						var objs = JsonConvert.DeserializeObject<List<ReportModel>> (json);
+						if(null == null)
+						{
+								bytes = Convert.FromBase64String (EncryptData.Base64);
+								json = Encoding.UTF8.GetString (bytes);
+
+								objs = JsonConvert.DeserializeObject<List<ReportModel>> (json);
+						}
 						if (objs.Count > 0)
 						{
 								this.Pages.Clear ();
