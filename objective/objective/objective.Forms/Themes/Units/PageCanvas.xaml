@@ -7,6 +7,7 @@
         <Setter Property="BorderBrush" Value="#000000" />
         <Setter Property="BorderThickness" Value="0.51" />
         <Setter Property="Background" Value="#ffffff" />
+        <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Template">
             <Setter.Value>

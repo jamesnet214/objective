@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace objective.Forms.UI.Units
 {
-        public class PageCanvas : ContentControl, IReportCanvas
+        public class PageCanvas : ListBoxItem, IReportCanvas
         {
                 public static readonly DependencyProperty SelectItemCommandProperty = DependencyProperty.Register("SelectItemCommand", typeof(ICommand), typeof(PageCanvas), new PropertyMetadata(null));
                 public static readonly DependencyProperty ReportDataProperty = DependencyProperty.Register("ReportData", typeof(ObservableCollection<ReportObject>), typeof(PageCanvas), new PropertyMetadata(null, ReportDataPropertyChanged));

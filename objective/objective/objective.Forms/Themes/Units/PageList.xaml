@@ -16,7 +16,7 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
                         <ScrollViewer>
-                            <Viewbox Stretch="UniformToFill">
+                            <Viewbox>
                                 <ItemsPresenter Width="1920" />
                             </Viewbox>
                         </ScrollViewer>
