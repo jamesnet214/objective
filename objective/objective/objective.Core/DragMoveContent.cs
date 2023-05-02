@@ -15,7 +15,8 @@ namespace objective.Core
                         MouseLeftButtonDown += DraggableRectangle_MouseLeftButtonDown;
                         MouseLeftButtonUp += DraggableRectangle_MouseLeftButtonUp;
                         MouseMove += DraggableRectangle_MouseMove;
-
+                        KeyDown += DragMoveContent_KeyDown;
+						PreviewKeyDown += DragMoveContent_PreviewKeyDown;
                         // ContextMenu 생성
                         ContextMenu contextMenu = new ContextMenu();
 
@@ -31,7 +32,44 @@ namespace objective.Core
                         ContextMenuService.SetContextMenu(this, contextMenu);
                 }
 
-                private void DraggableRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+				private void DragMoveContent_PreviewKeyDown(object sender, KeyEventArgs e)
+				{
+						double Left = Canvas.GetLeft(this);
+						double Top = Canvas.GetTop(this);
+						double newTop = 0;
+						double newLeft = 0;
+						if (e.Key == Key.Left || e.Key == Key.Right)
+						{
+								if (e.Key == Key.Left)
+										newLeft = Left + 1;
+								else
+										newLeft = Left - 1;
+								if (newLeft < 0) newLeft = 0;
+								if (newLeft + ActualWidth > (Parent as FrameworkElement).ActualWidth)
+										newLeft = (Parent as FrameworkElement).ActualWidth - ActualWidth;
+
+								Canvas.SetLeft(this, newLeft);
+
+						}
+						else if (e.Key == Key.Up || e.Key == Key.Down)
+						{
+								if (e.Key == Key.Up)
+										newTop = Top - 1;
+								else
+										newTop = Top + 1;
+								if (newTop < 0) newTop = 0;
+								if (newTop + ActualHeight > (Parent as FrameworkElement).ActualHeight)
+										newTop = (Parent as FrameworkElement).ActualHeight - ActualHeight;
+
+								Canvas.SetTop(this, newTop);
+						}
+				}
+
+				private void DragMoveContent_KeyDown(object sender, KeyEventArgs e)
+                {
+				}
+
+				private void DraggableRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
                 {
                         isDragging = true;
                         lastPosition = e.GetPosition(Parent as UIElement);

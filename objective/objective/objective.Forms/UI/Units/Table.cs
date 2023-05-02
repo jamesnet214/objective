@@ -152,7 +152,7 @@ namespace objective.Forms.UI.Units
                                 {
                                         if (e.ChangedButton == MouseButton.Left)
                                         {
-                                                this.Columns += ", Auto";
+                                                this.Columns += ", *";
                                                 SetCellField();
                                         }
                                         else
@@ -169,7 +169,7 @@ namespace objective.Forms.UI.Units
                                 {
                                         if (e.ChangedButton == MouseButton.Left)
                                         {
-                                                this.Rows += ", Auto";
+                                                this.Rows += ", *";
                                                 SetCellField();
                                         }
 
