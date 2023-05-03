@@ -203,10 +203,26 @@ namespace objective.Forms.Local.ViewModels
 						return source;
 				}
 
+
 				[RelayCommand]
 				private void SelectItem(ReportObject item)
 				{
+						if(isPress == true)
+						{
+								multiObject.Add (item);
+						}
 						SelectedObject = item;
+				}
+				private bool isPress = false;
+				List<ReportObject> multiObject = new ();
+				[RelayCommand]
+				private void MultiSelectItem(bool isPress)
+				{
+						this.isPress = isPress;
+						if (isPress == false)
+						{
+								this.multiObject.Clear ();
+						}
 				}
 		}
 }

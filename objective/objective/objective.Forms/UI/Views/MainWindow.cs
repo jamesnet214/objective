@@ -6,6 +6,7 @@ namespace objective.Forms.UI.Views
 {
         public class MainWindow : ObjectiveWindow
         {
+
                 static MainWindow()
                 {
                         DefaultStyleKeyProperty.OverrideMetadata(typeof(MainWindow), new FrameworkPropertyMetadata(typeof(MainWindow)));

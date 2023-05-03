@@ -6,6 +6,7 @@
     xmlns:views="clr-namespace:objective.Forms.UI.Views">
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Style TargetType="{x:Type views:MainContent}">
+        <Setter Property="MultiSelectItemCommand" Value="{Binding MultiSelectItemCommand}" />
         <Setter Property="Background" Value="#232323" />
         <Setter Property="Template">
             <Setter.Value>
