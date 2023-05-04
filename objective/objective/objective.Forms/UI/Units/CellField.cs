@@ -77,5 +77,20 @@ namespace objective.Forms.UI.Units
 
                         return this;
                 }
-        }
+
+				public override void SetLeft(double d)
+				{
+						throw new System.NotImplementedException ();
+				}
+
+				public override void SetTop(double d)
+				{
+						throw new System.NotImplementedException ();
+				}
+
+				public override void WidthSync(double d)
+				{
+						throw new System.NotImplementedException ();
+				}
+		}
 }

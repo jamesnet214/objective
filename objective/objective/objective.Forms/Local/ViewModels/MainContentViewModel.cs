@@ -34,12 +34,18 @@ namespace objective.Forms.Local.ViewModels
 
 				[ObservableProperty]
 				private ObservableCollection<PageModel> pages;
+				[ObservableProperty]
+				ObservableCollection<ReportObject> multiObject = new ();
+
+				[ObservableProperty]
+				private List<ToolItem> _subTools;
 
 				private readonly IEventAggregator _eh;
 				public MainContentViewModel(IEventAggregator eh)
 				{
 						_eh = eh;
 						Tools = GetTools ();
+						SubTools = GetSubTools ();
 						this.Pages = new ();
 
 						this._eh.GetEvent<ClosedEvent> ().Subscribe (() =>
@@ -200,25 +206,68 @@ namespace objective.Forms.Local.ViewModels
 						return source;
 				}
 
+				private List<ToolItem> GetSubTools()
+				{
+						List<ToolItem> source = new ();
+						source.Add (new ToolItem ("좌정렬"));
+						source.Add (new ToolItem ("위정렬"));
+						source.Add (new ToolItem ("가로길이동기화"));
+						source.Add (new ToolItem ("초기화"));
+						return source;
+				}
+
 
 				[RelayCommand]
 				private void SelectItem(ReportObject item)
 				{
+						SelectedObject = item;
 						if(isPress == true)
 						{
-								multiObject.Add (item);
+								if (item.GetType ().Name == "CellField" || item.GetType ().Name == "PageCanvas")
+										return;
+								this.MultiObject.Add (item);
 						}
-						SelectedObject = item;
 				}
 				private bool isPress = false;
-				List<ReportObject> multiObject = new ();
+				
 				[RelayCommand]
 				private void MultiSelectItem(bool isPress)
 				{
 						this.isPress = isPress;
-						if (isPress == false)
+				}
+
+				[RelayCommand]
+				private void SubTool(ToolItem item)
+				{
+						if(item.Name == "초기화")
+								this.MultiObject.Clear ();
+						else if(item.Name=="좌정렬")
 						{
-								this.multiObject.Clear ();
+								foreach(var obj in this.MultiObject.Skip(1).ToList())
+								{
+										obj.SetLeft (this.MultiObject[0].GetProperties ().Left);
+								}								
+						}
+						else if (item.Name == "위정렬")
+						{
+								foreach (var obj in this.MultiObject.Skip (1).ToList ())
+								{
+										obj.SetTop (this.MultiObject[0].GetProperties ().Top);
+								}
+						}
+						else if(item.Name == "가로길이동기화")
+						{
+								var FirstTable = this.MultiObject.FirstOrDefault (x => x.GetType().Name == "Table");
+								if (FirstTable == null)
+										return;
+								var TableList = this.MultiObject.Where (x => x.GetType ().Name == "Table").ToList ();
+								if (TableList.Count == 1)
+										return;
+
+								foreach (var obj in TableList.Skip (1).ToList ())
+								{
+										obj.WidthSync (this.MultiObject[0].GetProperties ().Width);
+								}
 						}
 				}
 		}

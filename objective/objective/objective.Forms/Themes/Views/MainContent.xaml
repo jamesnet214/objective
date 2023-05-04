@@ -44,7 +44,7 @@
                                 </controls:JamesGrid>
 
                                 <units:PropertyGrid DataContext="{Binding SelectedObject}" />
-                                <units:ToolGrid DataContext="{Binding SelectedObject}" />
+                                <units:ToolGrid SelectItemSource="{Binding MultiObject}" ToolfuncItemsSource="{Binding SubTools}" />
                             </StackPanel>
                             <Grid
                                 Grid.Column="0"

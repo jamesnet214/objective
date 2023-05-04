@@ -1,11 +1,30 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cnvts="clr-namespace:objective.Forms.Local.Converters"
     xmlns:units="clr-namespace:objective.Forms.UI.Units">
+    <cnvts:TypeToStringConverter x:Key="TypeToStringConverter" />
     <Style x:Key="Header" TargetType="{x:Type TextBlock}">
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Padding" Value="0,6,0,6" />
+    </Style>
+    <Style x:Key="tool" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Button
+                        Width="90"
+                        Height="30"
+                        Margin="5"
+                        Command="{Binding Path=DataContext.SubToolCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                        CommandParameter="{Binding .}"
+                        Content="{Binding Name}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
     <Style TargetType="{x:Type units:ToolGrid}">
         <Setter Property="Padding" Value="10,0,10,0" />
@@ -19,8 +38,24 @@
                         BorderThickness="{TemplateBinding BorderThickness}">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource Header}" Text="Tool Support" />
-                            <!--<ListBox ItemsSource="{TemplateBinding}" />
-                            <ListBox ItemsSource="{TemplateBinding}" />-->
+                            <ListBox
+                                Background="Transparent"
+                                BorderThickness="0"
+                                ItemContainerStyle="{StaticResource tool}"
+                                ItemsSource="{TemplateBinding ToolfuncItemsSource}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="3" />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox>
+                            <ListBox Height="500" ItemsSource="{TemplateBinding SelectItemSource}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource TypeToStringConverter}, Path=.}" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>
