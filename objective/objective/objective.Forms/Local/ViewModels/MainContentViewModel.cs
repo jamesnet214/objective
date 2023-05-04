@@ -11,12 +11,10 @@ using objective.Models;
 using objective.SampleData;
 using Prism.Events;
 using System;
-using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -87,7 +85,7 @@ namespace objective.Forms.Local.ViewModels
 						string json = Encoding.UTF8.GetString (bytes);
 
 						var objs = JsonConvert.DeserializeObject<List<ReportModel>> (json);
-						if(null == null)
+						if(objs == null)
 						{
 								bytes = Convert.FromBase64String (EncryptData.Base64);
 								json = Encoding.UTF8.GetString (bytes);
@@ -185,7 +183,7 @@ namespace objective.Forms.Local.ViewModels
 
 						string PullPath = $@"{FilePath}\{FileLoadName}";
 						Clipboard.SetText (base64);
-						using (StreamWriter sw = new (PullPath, false))
+						using (StreamWriter sw =File.CreateText(PullPath))
 						{
 								sw.Write (base64);
 						}

@@ -8,6 +8,7 @@
         <ResourceDictionary Source="/objective.Forms;component/Themes/Units/HorizontalLine.xaml" />
         <ResourceDictionary Source="/objective.Forms;component/Themes/Units/Picture.xaml" />
         <ResourceDictionary Source="/objective.Forms;component/Themes/Units/PropertyGrid.xaml" />
+        <ResourceDictionary Source="/objective.Forms;component/Themes/Units/ToolGrid.xaml" />
         <ResourceDictionary Source="/objective.Forms;component/Themes/Units/PageCanvas.xaml" />
         <ResourceDictionary Source="/objective.Forms;component/Themes/Units/PageListItem.xaml" />
         <ResourceDictionary Source="/objective.Forms;component/Themes/Units/PageList.xaml" />
