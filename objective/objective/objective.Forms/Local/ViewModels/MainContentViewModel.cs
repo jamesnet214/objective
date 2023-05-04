@@ -63,7 +63,6 @@ namespace objective.Forms.Local.ViewModels
 										FileLoadName = "Default.objective";
 										string PullPath = $@"{FilePath}\{FileLoadName}";
 
-										using (StreamWriter sw = new (PullPath, false))
 										File.Create ("Default.objective");
 										Application.Current.Dispatcher.Invoke (() =>
 										{
