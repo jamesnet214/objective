@@ -19,11 +19,16 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using objective.Forms.UI.Views;
+using System.Windows.Controls;
 
 namespace objective.Forms.Local.ViewModels
 {
 		public partial class MainContentViewModel : ObservableBase, IViewLoadable
 		{
+				private FrameworkElement aaa;
 				[ObservableProperty]
 				private bool isLoad = false;
 				[ObservableProperty]
@@ -56,6 +61,8 @@ namespace objective.Forms.Local.ViewModels
 
 				public void OnLoaded(IViewable smartWindow)
 				{
+						aaa = smartWindow.View;
+
 						Task.Run (() =>
 						{
 								OpenFileDialog ofd = new ();
@@ -213,6 +220,7 @@ namespace objective.Forms.Local.ViewModels
 						source.Add (new ToolItem ("위정렬"));
 						source.Add (new ToolItem ("가로길이동기화"));
 						source.Add (new ToolItem ("초기화"));
+						source.Add (new ToolItem ("세이브!"));
 						return source;
 				}
 
@@ -268,6 +276,43 @@ namespace objective.Forms.Local.ViewModels
 								{
 										obj.WidthSync (this.MultiObject[0].GetProperties ().Width);
 								}
+						}
+						else if (item.Name == "세이브!")
+						{
+								//for(int i=0; i <100; i++)
+								//{
+								//		var aabbba = obj.GetValue (Control.NameProperty) as string;
+
+								//		if (String.IsNullOrEmpty (aabbba))
+								//				continue;
+
+								//		Console.WriteLine ("");
+								//}
+					
+								////SaveImage (test, "aaa.jpeg");
+						}
+				}
+
+				private void SaveImage(FrameworkElement frameworkElement, string filePath)
+				{
+						RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap
+						(
+							(int)frameworkElement.ActualWidth,
+							(int)frameworkElement.ActualHeight,
+							96d,
+							96d,
+							PixelFormats.Default
+						);
+
+						renderTargetBitmap.Render (frameworkElement);
+
+						using (Stream stream = new FileStream (filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+						{
+								JpegBitmapEncoder encoder = new JpegBitmapEncoder ();
+
+								encoder.Frames.Add (BitmapFrame.Create (renderTargetBitmap));
+
+								encoder.Save (stream);
 						}
 				}
 		}

@@ -23,7 +23,10 @@
                             </Grid.ColumnDefinitions>
                             <units:ItemsList ItemsSource="{Binding Tools}" />
                             <Border Grid.Column="1" Background="#DFDFDF" />
-                            <units:PageList Grid.Column="1" ItemsSource="{Binding Pages}" />
+                            <units:PageList
+                                x:Name="PART_PAGE"
+                                Grid.Column="1"
+                                ItemsSource="{Binding Pages}" />
 
                             <StackPanel Grid.Column="2" Background="#EEEEEE">
                                 <controls:JamesGrid>

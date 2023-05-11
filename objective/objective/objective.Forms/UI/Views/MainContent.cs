@@ -1,10 +1,16 @@
 ﻿using Jamesnet.Wpf.Controls;
+using System;
 using System.Windows;
 using System.Windows.Input;
 
 namespace objective.Forms.UI.Views
 {
-		public class MainContent : JamesContent
+		public interface IViewAccess
+		{
+				FrameworkElement GetData();
+		}
+
+		public class MainContent : JamesContent, IViewAccess
         {
 				public static readonly DependencyProperty MultiSelectItemCommandProperty = DependencyProperty.Register ("MultiSelectItemCommand", typeof (ICommand), typeof (MainContent), new PropertyMetadata (null));
 
@@ -24,6 +30,11 @@ namespace objective.Forms.UI.Views
 						PreviewKeyUp += MainContent_PreviewKeyUp;
                 }
 
+				protected override void OnInitialized(EventArgs e)
+				{
+						base.OnInitialized (e);
+				}
+
 				private void MainContent_PreviewKeyUp(object sender, KeyEventArgs e)
 				{
 						if (e.Key == Key.LeftCtrl)
@@ -39,6 +50,11 @@ namespace objective.Forms.UI.Views
 						{
 								MultiSelectItemCommand?.Execute(true);
 						}
+				}
+
+				public FrameworkElement GetData()
+				{
+						return GetTemplateChild ("PART_PAGE") as FrameworkElement;
 				}
 		}
 }
