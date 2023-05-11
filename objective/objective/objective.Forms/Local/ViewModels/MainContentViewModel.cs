@@ -114,7 +114,7 @@ namespace objective.Forms.Local.ViewModels
 								{
 										for (int i = 0; i < this.Pages.Count; i++)
 										{
-												this.Pages[i].GetReportSource (objs[i]);
+												this.Pages[i].SetReportSource (objs[i]);
 										}
 										IsLoad = false;
 								}, null);

@@ -37,7 +37,7 @@ namespace objective.Forms.Local.Models
 
 						return m;
 				}
-				public void GetReportSource(ReportModel objData)
+				public void SetReportSource(ReportModel objData)
 				{
 						List<ReportObject> list = new ();
 						foreach (var data in objData.Objects)
