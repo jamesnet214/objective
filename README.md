@@ -17,3 +17,11 @@ The storage is a storage song produced by customizing [Jamesnet214/repot](https:
 ### 5. PDF 출력
 TBD...TBD...
 
+
+
+---
+<a href="https://github.com/jamesnet214/objective/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=jamesnet214/objective" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
